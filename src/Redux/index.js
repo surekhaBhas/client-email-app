@@ -1,0 +1,1 @@
+export {addFavorite} from './Favorite/FavoriteAction'

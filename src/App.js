@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import {Routes,Route} from 'react-router-dom'
+import HomePage from './components/HomePage';
+import ParticularMail from './components/ParticularMail';
+import {Provider} from 'react-redux'
+import store from './Redux/store';
+import Header from './components/Header';
+import UnRead from './components/UnRead';
+import Favorite from './components/Favorite';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={store}>
+        <Header/>
+      <Routes>
+    <Route path='/' element={<HomePage/>}/>
+    <Route path='/mail/:id' element={<ParticularMail/>}></Route>
+     <Route path='/unread' element={<UnRead/>}/>
+     <Route path='/favorite' element={<Favorite/>}/>
+   </Routes>
+      </Provider>
+   
+   
     </div>
   );
 }
