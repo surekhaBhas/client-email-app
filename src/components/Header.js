@@ -1,19 +1,25 @@
-import React  ,{useState} from 'react';
+import React from 'react';
 import "./Header.css"
-import { Link } from 'react-router-dom'
-const Header = () => {
+import { NavLink } from 'react-router-dom'
 
+const Header = () => {
   return (
     <div className='nav'>
       <span> Filter By</span>
 
       <div className='Nav-head'>
-        <Link to='/'><button className='nav-item active' >Read</button></Link>
-        <Link to="/unread"><button className='nav-item'>UnRead</button></Link>
-        <Link to='/favorite'><button className='nav-item'>Favorite</button></Link>
+        <NavLink to='/' exact="true" activeclassname="active" className="nav-item">
+          Read
+        </NavLink>
+        <NavLink to='/unread' activeclassname="active" className="nav-item">
+          UnRead
+        </NavLink>
+        <NavLink to='/favorite' activeclassname="active" className="nav-item">
+          Favorite
+        </NavLink>
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

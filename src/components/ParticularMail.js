@@ -12,19 +12,20 @@ const ParticularMail = (props) => {
 
     const {id}=useParams()
     const [mail,setMail]=useState({})
+    const [details,setDetails]=useState({})
     const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const date = searchParams.get('date');
   const name = searchParams.get('name');
   const formattedDate = moment(date).format('MMMM DD YYYY, hh:mm:ss a');
 
-   console.log(searchParams)
+
  
     useEffect(()=>{
     const getMailData=async()=>{
         try{
             const response= await axios.get(`https://flipkart-email-mock.now.sh/?id=${id}`)
-            console.log(response.data.body)
+            
             setMail(response.data)
             
         }catch(err){
@@ -35,10 +36,16 @@ const ParticularMail = (props) => {
     getMailData()
     },[id])
     const sanitizedHTML = DOMPurify.sanitize(mail.body);
-    console.log(props.listOfArray)
+    
+    const handleMailData=(data)=>{
+         
+         setDetails(data)
+    }
+
+    
   return (
     <div className='main'>
-        <div style={{width:"40vw"}}> <HomePage/></div>
+        <div style={{width:"40vw"}}> <HomePage handleMailData={handleMailData} /></div>
       
   <div className='display-details'>
           <div className="display-mail">
@@ -46,7 +53,7 @@ const ParticularMail = (props) => {
           <div className='details-container'>  
             <div className='favorite'>
             <p className='label'> <span>{name} </span></p>
-            <button className='favorite-btn' onClick={() => props.addFavorite(id)}>
+            <button className='favorite-btn' onClick={() => props.addFavorite(details)}>
                 Mark as favorite
             </button>
           </div>
@@ -71,6 +78,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps=dispatch=>{
 return {
-    addFavorite: (id) => dispatch(addFavorite(id))
+    addFavorite: (details) => dispatch(addFavorite(details))
 }}
 export default connect(mapStateToProps,mapDispatchToProps)(ParticularMail) 

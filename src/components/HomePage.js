@@ -5,10 +5,10 @@ import './HomePage.css';
 import { addFavorite } from '../Redux';
 import { connect } from 'react-redux';
 
-const HomePage = (props) => {
+const HomePage = ({handleMailData}) => {
     const [data,setData]=useState([]);
     const [loading,setLoading]=useState(true)
-    const favoriteItem = [...new Set(props.listOfArray.slice(1))];
+   
 
     useEffect(()=>{
         const getMailData=async()=>{
@@ -42,13 +42,17 @@ const HomePage = (props) => {
         try{
             const response= await axios.get('https://flipkart-email-mock.now.sh/?page=2')
             setData(response.data.list)
-            console.log(response.data.list)
+          
             setLoading(false)
             
         }catch(err){
             console.log(err)
             setLoading(false)
         }
+    }
+    const handlingData=(item)=>{
+       
+        handleMailData(item)
     }
   return (
     <div className='mail-container'>
@@ -57,9 +61,9 @@ const HomePage = (props) => {
        !loading && data.length?<ul>
         {data.map(item=><Link
   key={item.id}
-  to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
+  to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`} 
 >
-<li  class='each-mail'>
+<li  class='each-mail' onClick={()=>handlingData(item)}>
             <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>
             <div className='details'>
                 <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`} </span></p>
@@ -80,9 +84,5 @@ const HomePage = (props) => {
     </div>
   )
 }
-const mapStateToProps = (state) => {
-    return {
-      listOfArray: state.Favorite.listOfArray
-    };
-  };
-export default connect(mapStateToProps)(HomePage) 
+
+export default HomePage

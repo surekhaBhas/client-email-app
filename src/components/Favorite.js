@@ -3,43 +3,19 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 
-import { addFavorite } from '../Redux';
 import { connect } from 'react-redux';
 const Favorite = (props) => {
-    const [data,setData]=useState([]);
-    const [favorite,setFavorite]=useState([])
-    const [loading,setLoading]=useState(true)
-    const favoriteItem = [...new Set(props.listOfArray.slice(1))];
-
-
-    useEffect(()=>{
-        const getMailData=async()=>{
-            try{
-                const response= await axios.get('https://flipkart-email-mock.now.sh/?page=1')
-                setData(response.data.list)
-                console.log(response.data.list)
-                setLoading(false)
-                
-            }catch(err){
-                console.log(err)
-                setLoading(false)
-            }
-        }
-        getMailData()
-        const filteredData = data.filter(item => favoriteItem.includes(item.id));
-       setFavorite(filteredData)
-
-      
-    },[])
  
-    
+
+    const favoriteItem =props.listOfArray
+
   return (
     <div className='mail-container'>
         
     {
-     !loading && favorite.length?<ul>
-      {favorite.map(item=><Link
-key={item.id}
+      favoriteItem.length?<ul>
+      {favoriteItem.map((item,index)=><Link
+key={index}
 to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
 >
 <li  class='each-mail'>
@@ -53,7 +29,7 @@ to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
       </li></Link>)}
      </ul>:<li className='loading'>No favorites</li>
     }
-    {loading && <div className='loading'>Loading...</div>}
+   
     
   </div>
   )
