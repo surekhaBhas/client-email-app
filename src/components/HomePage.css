@@ -89,3 +89,8 @@ a{
 color:#Ef4065 ;
 border:2px solid #Ef4065 ;
 }
+.pagination{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}

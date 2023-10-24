@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import FavoriteReducer from "./Favorite/FavoriteReducer";
-import selectReducer from "./Marked/MarkedReducer";
+import unReadReducer from "./UnRead/UnReadReducer";
 
 const rootReducer=combineReducers({
     Favorite: FavoriteReducer,
-    select:selectReducer
+    unRead:unReadReducer
     
 }) 
 export default rootReducer
