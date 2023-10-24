@@ -8,6 +8,7 @@ const Favorite = (props) => {
  
 
     const favoriteItem =props.listOfArray
+    console.log(favoriteItem)
 
   return (
     <div className='mail-container'>
