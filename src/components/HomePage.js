@@ -57,7 +57,7 @@ const HomePage = (props) => {
           {data.map(item => (
             <Link
               key={item.id}
-              to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
+              to={`/mail/${item.id}`}
             >
               <li className='each-mail' onClick={() => handlingData(item)}>
                 <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>

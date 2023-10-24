@@ -1,25 +1,21 @@
 import {useEffect,useState} from 'react'
 import { connect } from 'react-redux';
-import { fetchMails, removeUnread ,addRead} from '../Redux';
+
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom';
 
-const UnRead = (props) => {
- const {list,fetchMails}=props
-const itemsPerPage=10;
-const [currentPage,setCurrentPage]=useState(0)
-  useEffect(()=>{
-    fetchMails()
-  },[])
+const Read = ({ReadList}) => {
 
-const handlePageClick=(data)=>{
-  setCurrentPage(data.selected)
-}
+    const itemsPerPage=10;
+    const [currentPage,setCurrentPage]=useState(0)
 
-const displayList=list.slice(
-  currentPage*itemsPerPage,(currentPage+1)*itemsPerPage
-)
 
+    const handlePageClick=(data)=>{
+          setCurrentPage(data.selected)
+      }
+    const displayList=ReadList.slice(
+        currentPage*itemsPerPage,(currentPage+1)*itemsPerPage
+      )
   return (
     <div>
        <ul>
@@ -28,7 +24,7 @@ const displayList=list.slice(
               key={item.id}
               to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
             >
-             <li className='each-mail' onClick={() => {props.removeUnread(item.id);props.addRead(item);}}>
+             <li className='each-mail'>
                 <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>
                 <div className='details'>
                   <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`}</span></p>
@@ -41,7 +37,7 @@ const displayList=list.slice(
           ))}
         </ul>
       <ReactPaginate
-        pageCount={Math.ceil(list.length / itemsPerPage)}
+        pageCount={Math.ceil(ReadList.length / itemsPerPage)}
         pageRangeDisplayed={5}
         marginPagesDisplayed={1}
         onPageChange={handlePageClick}
@@ -50,18 +46,11 @@ const displayList=list.slice(
     </div>
   )
 }
-
 const mapToStateProps = state => {
-  return {
-    list: state.unRead.list 
-  };
-}
-
-const mapDispatchToProps=dispatch=>{
-  return{
-    fetchMails:()=>dispatch(fetchMails()),
-    removeUnread:(id)=>dispatch(removeUnread(id)),
-    addRead:(data)=>dispatch(addRead(data))
+    return {
+      ReadList: state.read.ReadList 
+    };
   }
-}
-export default connect(mapToStateProps,mapDispatchToProps)(UnRead) 
+  
+
+export default connect(mapToStateProps)(Read) 

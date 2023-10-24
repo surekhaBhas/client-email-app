@@ -8,6 +8,7 @@ import store from './Redux/store';
 import Header from './components/Header';
 import UnRead from './components/UnRead';
 import Favorite from './components/Favorite';
+import Read from './components/Read';
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
         <Header/>
       <Routes>
     <Route path='/' element={<HomePage/>}/>
+    <Route path='/read' element={<Read/>}/>
     <Route path='/mail/:id' element={<ParticularMail/>}></Route>
      <Route path='/unread' element={<UnRead/>}/>
      <Route path='/favorite' element={<Favorite/>}/>

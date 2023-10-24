@@ -8,7 +8,7 @@ const Header = () => {
       <span> Filter By</span>
 
       <div className='Nav-head'>
-        <NavLink to='/' exact="true" activeclassname="active" className="nav-item">
+        <NavLink to='/read' exact="true" activeclassname="active" className="nav-item">
           Read
         </NavLink>
         <NavLink to='/unread' activeclassname="active" className="nav-item">

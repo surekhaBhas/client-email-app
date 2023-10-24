@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react'
-import axios from 'axios';
+
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 
@@ -12,24 +12,29 @@ const Favorite = (props) => {
 
   return (
     <div className='mail-container'>
-        
     {
-      favoriteItem.length?<ul>
-      {favoriteItem.map((item,index)=><Link
-key={index}
-to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
->
-<li  class='each-mail'>
-          <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>
-          <div className='details'>
-              <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`} </span></p>
+  favoriteItem.length ? (
+    <ul>
+      {favoriteItem.map((item, index) => (
+        <Link key={index} to={`/favorite/${item.id}`}>
+          <li className='each-mail'>
+            <div className='profile'>
+              <h1>{item.from.name.charAt(0).toUpperCase()}</h1>
+            </div>
+            <div className='details'>
+              <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`}</span></p>
               <p className='label'>Subject: <span>{item.subject}</span></p>
-              <p style={{marginBottom:"10px"}}>{item.short_description}</p>
+              <p style={{ marginBottom: "10px" }}>{item.short_description}</p>
               <p>{new Date(item.date).toLocaleString()}</p>
-          </div>
-      </li></Link>)}
-     </ul>:<li className='loading'>No favorites</li>
-    }
+            </div>
+          </li>
+        </Link>
+      ))}
+    </ul>
+  ) : <li className='loading'>No favorites</li>
+  
+}
+
    
     
   </div>
