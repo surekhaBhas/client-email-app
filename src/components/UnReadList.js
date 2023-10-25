@@ -3,12 +3,12 @@ import axios from 'axios';
 import DOMPurify from 'dompurify';
 import './HomePage.css';
 import { useParams} from 'react-router-dom';
-import HomePage from './HomePage';
+import UnRead from './UnRead';
 import './Particular.css';
 import { addFavorite } from '../Redux';
 import { connect } from 'react-redux';
 
-const ParticularMail = ({ MailItem, addFavorite }) => {
+const UnReadList = ({ MailItem, addFavorite }) => {
   const { id } = useParams();
   const [mail, setMail] = useState({});
 
@@ -30,7 +30,7 @@ const ParticularMail = ({ MailItem, addFavorite }) => {
 
   return (
     <div className='main'>
-      <div style={{ width: "40vw" }}> <HomePage/></div>
+      <div style={{ width: "40vw" }}> <UnRead/></div>
 
       <div className='display-details'>
         <div className="display-mail">
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ParticularMail);
+export default connect(mapStateToProps, mapDispatchToProps)(UnReadList);

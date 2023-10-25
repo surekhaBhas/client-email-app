@@ -9,6 +9,7 @@ import Header from './components/Header';
 import UnRead from './components/UnRead';
 import Favorite from './components/Favorite';
 import Read from './components/Read';
+import UnReadList from './components/UnReadList';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
     <Route path='/read' element={<Read/>}/>
     <Route path='/mail/:id' element={<ParticularMail/>}></Route>
      <Route path='/unread' element={<UnRead/>}/>
+     <Route path='/unread/:id' element={<UnReadList/>}/>
      <Route path='/favorite' element={<Favorite/>}/>
    </Routes>
       </Provider>

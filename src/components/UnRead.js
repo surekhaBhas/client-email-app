@@ -26,7 +26,7 @@ const displayList=list.slice(
           {displayList.map(item => (
             <Link
               key={item.id}
-              to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
+              to={`/unread/${item.id}`}
             >
              <li className='each-mail' onClick={() => {props.removeUnread(item.id);props.addRead(item);}}>
                 <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>

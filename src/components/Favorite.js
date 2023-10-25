@@ -15,22 +15,23 @@ const Favorite = (props) => {
     {
   favoriteItem.length ? (
     <ul>
-      {favoriteItem.map((item, index) => (
-        <Link key={index} to={`/favorite/${item.id}`}>
-          <li className='each-mail'>
-            <div className='profile'>
-              <h1>{item.from.name.charAt(0).toUpperCase()}</h1>
-            </div>
-            <div className='details'>
-              <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`}</span></p>
-              <p className='label'>Subject: <span>{item.subject}</span></p>
-              <p style={{ marginBottom: "10px" }}>{item.short_description}</p>
-              <p>{new Date(item.date).toLocaleString()}</p>
-            </div>
-          </li>
-        </Link>
-      ))}
-    </ul>
+    {favoriteItem.map(item => (
+      <Link
+        key={item.id}
+        to={`/mail/${item.id}?name=${item.from.name}&date=${item.date}`}
+      >
+       <li className='each-mail' onClick={() => {props.removeUnread(item.id);props.addRead(item);}}>
+          <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>
+          <div className='details'>
+            <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`}</span></p>
+            <p className='label'>Subject: <span>{item.subject}</span></p>
+            <p style={{ marginBottom: "10px" }}>{item.short_description}</p>
+            <p>{new Date(item.date).toLocaleString()}</p>
+          </div>
+        </li>
+      </Link>
+    ))}
+  </ul>
   ) : <li className='loading'>No favorites</li>
   
 }

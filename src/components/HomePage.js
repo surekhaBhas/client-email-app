@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
-import { addFavorite } from '../Redux';
+import { selectedMail } from '../Redux';
 import { connect } from 'react-redux';
 
 const HomePage = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { handleMailData } = props;
+
 
   useEffect(() => {
     const getMailData = async () => {
@@ -46,9 +46,7 @@ const HomePage = (props) => {
     }
   }
 
-  const handlingData = (item) => {
-    handleMailData(item);
-  }
+
 
   return (
     <div className='mail-container'>
@@ -59,7 +57,7 @@ const HomePage = (props) => {
               key={item.id}
               to={`/mail/${item.id}`}
             >
-              <li className='each-mail' onClick={() => handlingData(item)}>
+              <li className='each-mail' onClick={() => props.selectedMail(item)}>
                 <div className='profile'><h1>{item.from.name.charAt(0).toUpperCase()}</h1></div>
                 <div className='details'>
                   <p className='label'>From: <span>{item.from.name} {`<${item.from.email}>`}</span></p>
@@ -84,5 +82,12 @@ const HomePage = (props) => {
     </div>
   );
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    selectedMail: (item) => dispatch(selectedMail(item))
+  }
+}
 
-export default HomePage;
+
+export default connect(null, mapDispatchToProps)(HomePage);
+
